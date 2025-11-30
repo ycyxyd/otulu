@@ -1,0 +1,107 @@
+{
+    "name": "Daily News Digest",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "hours",
+                            "triggerAtHour": 8
+                        }
+                    ]
+                }
+            },
+            "name": "Schedule Trigger",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "http://backend:8080/api/v1/content/news/trigger",
+                "method": "POST",
+                "options": {}
+            },
+            "name": "Trigger Backend News Fetch",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "functionCode": "const news = items[0].json;\nreturn [{ json: { summary: `Daily Digest: ${news.length} new articles fetched.` } }];"
+            },
+            "name": "Format Summary",
+            "type": "n8n-nodes-base.function",
+            "typeVersion": 1,
+            "position": [
+                650,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "http://serverless-proxy:3000/notify",
+                "method": "POST",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "value": "={{$node[\"Format Summary\"].json[\"summary\"]}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Push to WeChat (Mock)",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                850,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Schedule Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Trigger Backend News Fetch",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Trigger Backend News Fetch": {
+            "main": [
+                [
+                    {
+                        "node": "Format Summary",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Format Summary": {
+            "main": [
+                [
+                    {
+                        "node": "Push to WeChat (Mock)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
