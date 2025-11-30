@@ -1,9 +1,0 @@
-{
-    "name": "outuolu-serverless-proxy",
-    "version": "1.0.0",
-    "description": "Proxy for OuTuoLu WeChat Mini Program",
-    "main": "index.js",
-    "dependencies": {},
-    "author": "OuTuoLu Team",
-    "license": "ISC"
-}
