@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial App Mockup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>MyFinance</h1>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#transactions">Transactions</a>
+            <a href="#budget">Budget</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <div class="balance">
+                <h3>Current Balance</h3>
+                <p id="balance-amount">$5,234.56</p>
+            </div>
+
+            <div class="quick-actions">
+                <button id="add-income">Add Income</button>
+                <button id="add-expense">Add Expense</button>
+                <button id="transfer">Transfer</button>
+            </div>
+
+            <div class="chart-placeholder">
+                <h3>Spending Overview</h3>
+                <canvas id="spending-chart" width="400" height="200"></canvas>
+            </div>
+        </section>
+
+        <section id="transactions">
+            <h2>Recent Transactions</h2>
+            <ul id="transaction-list">
+                <li>Grocery Store - $45.67 - Today</li>
+                <li>Salary - $3,200.00 - Yesterday</li>
+                <li>Gas Station - $32.10 - 2 days ago</li>
+                <li>Restaurant - $78.50 - 3 days ago</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
